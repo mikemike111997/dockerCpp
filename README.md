@@ -1,7 +1,7 @@
 # dockerCpp
 dockerCpp is a simple playground to learn cmake, dockern and modern C++ features.
 
-# CMake cache generation
+# CMake cache generation and build
 Clone project and create a build directory:
 ```bash
 git clone https://github.com/mikemike111997/dockerCpp.git
@@ -18,7 +18,7 @@ To build a release build change build type:
 cd dockerCpp && cmake --type=release -G Ninja ..
 ```
 
-# Build
+Build
 Ninja. Run this command in the build directory:
 ```bash
 ninja
