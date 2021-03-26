@@ -1,5 +1,6 @@
 [build_requires]
 gtest/1.8.1@bincrafters/stable
+boost/1.75.0
 
 [generators]
 cmake_paths
