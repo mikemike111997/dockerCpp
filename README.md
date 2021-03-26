@@ -22,3 +22,15 @@ To build using Unix Makefiles:
 ```bash
 cd dockerCpp && cmake --type=release .. && make
 ```
+
+# CPPCHECK
+If there's a cppcheck installed on the build machine
+you can run cppcheck on all source files of this project using the next command:
+```bash
+cd build && ninja run-cppcheck
+```
+or 
+```bash
+cd build && make run-cppcheck
+```
+if you've used Unix Makefiles generator.

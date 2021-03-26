@@ -6,8 +6,8 @@ ${PROJECT_SOURCE_DIR}/*.h
 find_program(cppcheck "cppcheck")
 if(cppcheck)
     add_custom_target(
-            cppcheck
-            COMMAND ${CPPCHECK}
+            run-cppcheck
+            COMMAND ${cppcheck}
              --enable=warning,performance,portability,information,missingInclude
             --enable=all
             --std=c++17
