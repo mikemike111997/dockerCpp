@@ -16,7 +16,7 @@ using tcp = boost::asio::ip::tcp;
 class HttpConnection : public std::enable_shared_from_this<HttpConnection>
 {
 public:
-    HttpConnection(tcp::socket socket)
+    explicit HttpConnection(tcp::socket socket)
         : socket_(std::move(socket))
     {}
 
