@@ -9,5 +9,6 @@ conan_cmake_run(CONANFILE conanfile.txt  # or relative build/conanfile.txt
                 BUILD missing)
 
 include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
+include(cmake/add-cppcheck-target.cmake)
 
 add_executable(dockerCpp src/main.cpp)
