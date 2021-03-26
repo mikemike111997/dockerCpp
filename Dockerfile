@@ -10,6 +10,12 @@ RUN apt-get -y install clang
 # Install git
 RUN apt-get -y install git
 
+# Install pip
+RUN apt-get -y install python3-pip
+
+# Install conan
+RUN pip3 install conan
+
 # Use clang as default compiler
 RUN export CXX=/usr/bin/clang++
 
