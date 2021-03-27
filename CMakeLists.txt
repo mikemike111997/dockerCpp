@@ -12,6 +12,6 @@ conan_cmake_run(CONANFILE conanfile.txt  # or relative build/conanfile.txt
 include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 include(cmake/add-cppcheck-target.cmake)
 
-add_executable(dockerCpp src/main.cpp src/server.cpp)
+add_executable(dockerCpp src/main.cpp)
 target_link_libraries(dockerCpp CONAN_PKG::boost)
 target_include_directories(dockerCpp PUBLIC inc)
