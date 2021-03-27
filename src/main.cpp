@@ -26,12 +26,12 @@ static std::string generateMessage()
 
 int main(int argC, char* argV[])
 {
-
     try
     {
         boost::asio::io_context io;
-
-        tcp::acceptor acceptor(io, tcp::endpoint(tcp::v4(), 2048));
+        constexpr unsigned short port = 2048;
+        tcp::acceptor acceptor(io, tcp::endpoint(tcp::v4(), port));
+        
         for (;;)
         {
             tcp::socket socket(io);
@@ -45,7 +45,7 @@ int main(int argC, char* argV[])
     catch (const std::exception& e)
     {
         std::cout << e.what() << std::endl;
-        exit(-2);
+        exit(-1);
     }
 
     return 0;

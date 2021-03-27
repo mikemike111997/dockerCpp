@@ -23,7 +23,7 @@ ENV CXX=/usr/bin/clang++
 WORKDIR /usr/src
 RUN git clone https://github.com/mikemike111997/dockerCpp.git && \
     cd dockerCpp && mkdir build && cd build && \
-    cmake -G Ninja -DCMAKE_BUILD_TYPE=Release .. && ninja install
+    cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release .. && ninja install
 
 # Run dockerCpp
 CMD ["dockerCpp"]
