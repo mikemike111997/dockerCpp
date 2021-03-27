@@ -17,6 +17,13 @@ RUN apt-get -y install python3-pip
 RUN pip3 install conan
 
 # Use clang as default compiler
-RUN export CXX=/usr/bin/clang++
+ENV CXX=/usr/bin/clang++
 
-CMD ["bash"]
+# Install project from git
+WORKDIR /usr/src
+RUN git clone https://github.com/mikemike111997/dockerCpp.git && \
+    cd dockerCpp && mkdir build && cd build && \
+    cmake -G Ninja -DCMAKE_BUILD_TYPE=Release .. && ninja install
+
+# Run dockerCpp
+CMD ["dockerCpp"]

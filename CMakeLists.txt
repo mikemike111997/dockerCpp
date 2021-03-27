@@ -15,3 +15,5 @@ include(cmake/add-cppcheck-target.cmake)
 add_executable(dockerCpp src/main.cpp)
 target_link_libraries(dockerCpp CONAN_PKG::boost)
 target_include_directories(dockerCpp PUBLIC inc)
+
+install(TARGETS dockerCpp)
