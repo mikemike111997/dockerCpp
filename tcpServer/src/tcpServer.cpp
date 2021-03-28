@@ -1,3 +1,14 @@
+/**
+ * @file tcpServer.cpp
+ * @author Mykhailo Lohvynenko (mikemike111997@gmail.com)
+ * @brief A simple TCP Server using boost::asio tutorial as a reference
+ * @version 0.1
+ * @date 2021-03-28
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include <iostream>
 #include <boost/asio.hpp>
 #include <boost/array.hpp>
@@ -6,6 +17,12 @@
 using boost::asio::ip::tcp;
 
 
+/**
+ * @brief generates an HTML page that contains info 
+ *        about num of requests that has been processed
+ * 
+ * @return std::string
+ */
 static std::string generateMessage()
 {
     static size_t count{0};
