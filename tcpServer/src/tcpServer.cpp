@@ -26,6 +26,7 @@ static std::string generateMessage()
 
 int main(int argC, char* argV[])
 {
+    std::cout << argV[0] << " has been started!" << std::endl;
     try
     {
         boost::asio::io_context io;
@@ -48,5 +49,6 @@ int main(int argC, char* argV[])
         exit(-1);
     }
 
+    std::cout << argV[0] << " has been stopped!" << std::endl;
     return 0;
 }

@@ -29,4 +29,4 @@ RUN git clone https://github.com/mikemike111997/dockerCpp.git && \
 EXPOSE 2048
 
 # Run dockerCpp
-CMD ["dockerCpp"]
+CMD ["bash"]
