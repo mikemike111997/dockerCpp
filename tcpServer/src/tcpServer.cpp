@@ -49,7 +49,6 @@ int main(int argC, char* argV[])
         boost::asio::io_context io;
         constexpr unsigned short port = 2048;
         tcp::acceptor acceptor(io, tcp::endpoint(tcp::v4(), port));
-        
         for (;;)
         {
             tcp::socket socket(io);
