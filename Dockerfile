@@ -21,9 +21,17 @@ ENV CXX=/usr/bin/clang++
 
 # Install project from git
 WORKDIR /usr/src
-RUN git clone https://github.com/mikemike111997/dockerCpp.git && \
-    cd dockerCpp && mkdir build && cd build && \
-    cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release .. && ninja install
+RUN git clone https://github.com/mikemike111997/dockerCpp.git
+
+# Create build dir and use it as the workdir
+RUN mkdir -p /usr/srcdockerCpp/build
+WORKDIR /usr/src/dockerCpp/build
+
+# Generate CMake cache
+RUN cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release ..
+
+# build and install targets
+RUN ninja install
 
 # Expose dockerCPP tcp port
 EXPOSE 2048
