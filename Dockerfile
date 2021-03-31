@@ -27,7 +27,7 @@ WORKDIR /usr/src
 RUN git clone https://github.com/mikemike111997/dockerCpp.git
 
 # Create build dir and use it as the workdir
-RUN rm -rf /usr/src/dockerCpp/ && mkdir -p /usr/src/dockerCpp/build
+RUN mkdir -p /usr/src/dockerCpp/build
 WORKDIR /usr/src/dockerCpp/build
 
 # Generate CMake cache
@@ -39,6 +39,6 @@ RUN ninja install
 
 # Expose dockerCPP tcp port
 # EXPOSE 2048
-EXPOSE 8080
+EXPOSE 8000 8080
 
-CMD ["./httpServer", " 0.0.0.0", "8080"]
+CMD ["./httpServer", "0.0.0.0", "8080"]
