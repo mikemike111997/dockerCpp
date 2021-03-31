@@ -18,4 +18,5 @@ conan_cmake_run(CONANFILE conanfile.txt  # or relative build/conanfile.txt
 include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 include(cmake/add-cppcheck-target.cmake)
 
+add_subdirectory(httpServer)
 add_subdirectory(tcpServer)
