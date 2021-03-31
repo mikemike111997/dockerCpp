@@ -54,6 +54,7 @@ int main(int argC, char* argV[])
     {
         boost::asio::io_context io;
         const unsigned short port = boost::lexical_cast<unsigned short>(argV[1]);
+        std::cout << "start licening on port: " << port << std::endl;
         tcp::acceptor acceptor(io, tcp::endpoint(tcp::v4(), port));
         for (;;)
         {
