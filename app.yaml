@@ -3,6 +3,7 @@ env: flex
 network:
   forwarded_ports:
     - 2048/tcp
+    - 8080
 manual_scaling:
   instances: 1
 resources:
