@@ -41,4 +41,5 @@ RUN ninja install
 # EXPOSE 2048
 EXPOSE 8000 8080
 
+WORKDIR /usr/local
 CMD ["./httpServer", "0.0.0.0", "8080"]
