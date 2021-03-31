@@ -37,7 +37,7 @@ RUN echo && cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=
 RUN ninja install
 
 # Expose dockerCPP tcp port
-EXPOSE 2048
-EXPOSE 8080
+# EXPOSE 2048
+# EXPOSE 8080
 
-CMD ["python3", "-m", "http.server", "8080"]
+CMD ["./tcpServer", "8080"]

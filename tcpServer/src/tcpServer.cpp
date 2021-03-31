@@ -44,10 +44,16 @@ static std::string generateMessage()
 int main(int argC, char* argV[])
 {
     std::cout << argV[0] << " has been started!" << std::endl;
+    if (argC != 2)
+    {
+        std::cout << "invalid command, excpected: \"<executable> <port>\"" << std::endl;
+        exit(-1);
+    }
+
     try
     {
         boost::asio::io_context io;
-        constexpr unsigned short port = 2048;
+        const unsigned short port = boost::lexical_cast<unsigned short>(argV[1]);
         tcp::acceptor acceptor(io, tcp::endpoint(tcp::v4(), port));
         for (;;)
         {
