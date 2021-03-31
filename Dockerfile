@@ -31,7 +31,8 @@ RUN mkdir -p /usr/srcdockerCpp/build
 WORKDIR /usr/src/dockerCpp/build
 
 # Generate CMake cache
-RUN echo && cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release ..
+RUN git checkout feature/provide-http-endpoint
+RUN cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release ..
 
 # build and install targets
 RUN ninja install
