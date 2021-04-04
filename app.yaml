@@ -3,9 +3,12 @@ env: flex
 network:
   forwarded_ports:
     - 2048/tcp
+    - 8000:8080
 manual_scaling:
   instances: 1
 resources:
-  cpu: 1
-  memory_gb: 0.5
+  cpu: 2
+  memory_gb: 4
   disk_size_gb: 10
+readiness_check:
+  app_start_timeout_sec: 1800

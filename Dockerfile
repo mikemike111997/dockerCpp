@@ -10,6 +10,9 @@ RUN apt-get -y install clang
 # Install git
 RUN apt-get -y install git
 
+# Install python3
+RUN apt-get -y install python3
+
 # Install pip
 RUN apt-get -y install python3-pip
 
@@ -24,17 +27,19 @@ WORKDIR /usr/src
 RUN git clone https://github.com/mikemike111997/dockerCpp.git
 
 # Create build dir and use it as the workdir
-RUN mkdir -p /usr/srcdockerCpp/build
+RUN mkdir -p /usr/src/dockerCpp/build
 WORKDIR /usr/src/dockerCpp/build
 
 # Generate CMake cache
+RUN git fetch && git checkout feature/provide-http-endpoint
 RUN cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release ..
 
 # build and install targets
 RUN ninja install
 
 # Expose dockerCPP tcp port
-EXPOSE 2048
+# EXPOSE 2048
+EXPOSE 8000 8080
 
-# Run dockerCpp
-CMD ["bash"]
+WORKDIR /usr/local
+CMD ["httpServer", "0.0.0.0", "8080"]
