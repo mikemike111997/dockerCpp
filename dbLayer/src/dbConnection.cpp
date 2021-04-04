@@ -14,7 +14,7 @@
 NSDBConnection::PGConnection::PGConnection(
     std::string host, std::string port, std::string dbName,
     std::string dbUser, std::string dbPass)
-    : host_(std::move(host)), port_(std::move(port)), dbName_(std::move(dbName_)),
+    : host_(std::move(host)), port_(std::move(port)), dbName_(std::move(dbName)),
       dbUser_(std::move(dbUser)), dbPass_(std::move(dbPass))                         
 {
     connect();
