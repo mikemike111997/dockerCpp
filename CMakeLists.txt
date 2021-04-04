@@ -6,7 +6,11 @@ set(CMAKE_CXX_STANDARD 17)
 if(MSVC)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
     set(BUILD_SHARED_LIBS TRUE)
-    add_compile_options(/WX /W3 -D_WIN32_WINNT=0x0501)
+
+    # The preprocessor macros WINVER and WIN32_WINNT
+    # specify the minimum operating system version your code supports
+    # 0x0A00 // Windows 10
+    add_compile_options(/WX /W3 -D_WIN32_WINNT=0x0A00 -D_WINVER=0x0A00)
 else()
     add_compile_options(-g2 -Werror -Wall -Wpedantic -Weffc++)
 endif()
