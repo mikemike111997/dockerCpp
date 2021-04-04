@@ -28,6 +28,7 @@ PGresult* NSDBConnection::PGConnection::executeSQL(std::string_view sqlStr)
 
 void NSDBConnection::PGConnection::connect()
 {
+    // PQfinish is used as a custom deleter.
     connection_.reset( PQsetdbLogin(host_.c_str(), port_.c_str(), nullptr, nullptr,
                                     dbName_.c_str(), dbUser_.c_str(), dbPass_.c_str()),
                        &PQfinish );

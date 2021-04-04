@@ -42,6 +42,12 @@ namespace NSMyProgramState
         return std::time(0);
     }
 
+    /**
+     * @brief connects do Postgree db, selects all users and returns data
+     *        in http table format
+     * 
+     * @return std::string 
+     */
     std::string getUsers()
     {
         NSDBConnection::PGConnection conn("34.65.88.18", "5432", "postgres", "postgres", "iDGJ6E7JlkJJ3u5v");
