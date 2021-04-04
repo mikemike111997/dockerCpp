@@ -11,6 +11,8 @@
  * 
  */
 
+#include "dbConnection.h"
+
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/version.hpp>
@@ -38,6 +40,28 @@ namespace NSMyProgramState
     std::time_t now()
     {
         return std::time(0);
+    }
+
+    /**
+     * @brief connects do Postgree db, selects all users and returns data
+     *        in http table format
+     * 
+     * @return std::string 
+     */
+    std::string getUsers()
+    {
+        NSDBConnection::PGConnection conn("34.65.88.18", "5432", "postgres", "postgres", "iDGJ6E7JlkJJ3u5v");
+        auto res = conn.executeSQL("select * from users;");
+        if (PQresultStatus(res) != PGRES_TUPLES_OK)
+        {
+            return PQresultErrorMessage(res);
+        }
+        else
+        {
+            // probably we have a leak in res.
+            // TODO: run valgrind, release all acquired resources
+            return NSDBConnection::htmlTableFromRes(res);
+        }
     }
 }
 
@@ -146,11 +170,34 @@ private:
                 <<  "</body>\n"
                 <<  "</html>\n";
         }
+        else if (request_.target() == "/users")
+        {
+            response_.set(http::field::content_type, "text/html");
+            beast::ostream(response_.body())
+                <<  "<html>\n"
+                <<  "<head><title>Users</title></head>\n"
+                <<  "<body>\n"
+                <<  "<h1>The list of users in DB</h1>\n"
+                <<  "<p>The result of getUsers() calls  "
+                <<  NSMyProgramState::getUsers()
+                <<  "</p>\n"
+                <<  "</body>\n"
+                <<  "</html>\n";
+        }
         else
         {
             response_.result(http::status::not_found);
-            response_.set(http::field::content_type, "text/plain");
-            beast::ostream(response_.body()) << "File not found\r\n";
+            response_.set(http::field::content_type, "text/html");
+            beast::ostream(response_.body())
+                 <<  "<html>\n"
+                <<  "<head><title>Main page</title></head>\n"
+                <<  "<body>\n"
+                <<  "<h1>Implemented endpoints:</h1>\n"
+                <<  "<p><a href=\"count\">How many requests has been procced</a></p>\n"
+                <<  "<p><a href=\"time\">Server's time</a></p>\n"
+                <<  "<p><a href=\"users\">List of users in DB</a></p>\n"
+                <<  "</body>\n"
+                <<  "</html>\n";
         }
     }
 

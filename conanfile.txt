@@ -1,6 +1,7 @@
 [build_requires]
 gtest/1.8.1@bincrafters/stable
 boost/1.75.0
+libpq/13.2
 
 [generators]
 cmake_paths
