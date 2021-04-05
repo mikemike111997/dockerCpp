@@ -35,6 +35,7 @@ ENV PATH="/usr/src/vcpkg:${PATH}"
 RUN vcpkg install boost
 RUN vcpkg install libpq
 RUN vcpkg install grpc
+RUN vcpkg install protobuf
 RUN vcpkg integrate install
 
 # Install project from git
