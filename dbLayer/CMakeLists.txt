@@ -1,5 +1,9 @@
 add_library(dbLayer SHARED src/dbConnection.cpp inc/dbConnection.h)
-target_link_libraries(dbLayer PUBLIC CONAN_PKG::libpq)
-target_include_directories(dbLayer PUBLIC inc PUBLIC ${CONAN_LIBPQ_ROOT}/include)
+
+find_package(OpenSSL REQUIRED)
+find_package(PostgreSQL REQUIRED)
+
+target_link_libraries(dbLayer PUBLIC PostgreSQL::PostgreSQL PUBLIC OpenSSL::SSL OpenSSL::Crypto)
+target_include_directories(dbLayer PUBLIC inc PUBLIC ${PostgreSQL_INCLUDE_DIR})
 
 install(TARGETS dbLayer)
