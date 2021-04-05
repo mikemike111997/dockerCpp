@@ -12,10 +12,16 @@ if(MSVC)
     # specify the minimum operating system version your code supports
     # 0x0A00 // Windows 10
     add_compile_options(/WX /W3 -D_WIN32_WINNT=0x0A00 -D_WINVER=0x0A00)
+
+    # Resolve build dir lib lookup
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 else()
     add_compile_options(-g2 -Werror -Wall -Wpedantic -Weffc++)
 endif()
 
+find_package(Threads REQUIRED)
 find_package(Boost REQUIRED)
 
 include(cmake/add-cppcheck-target.cmake)
