@@ -21,6 +21,8 @@ RUN pip3 install conan
 
 RUN apt-get -y install curl zip unzip tar
 
+RUN apt-get -y install pkg-config
+
 # Use clang as default compiler
 ENV CXX=/usr/bin/clang++
 
@@ -35,14 +37,16 @@ RUN vcpkg install libpq
 RUN vcpkg integrate install
 
 # Install project from git
-RUN git clone https://github.com/mikemike111997/dockerCpp.git
+RUN git clone https://github.com/mikemike111997/dockerCpp.git && \
+    cd dockerCpp && git fetch && git checkout feature/fix-docker-build
 
 # Create build dir and use it as the workdir
 RUN mkdir -p /usr/src/dockerCpp/build
 WORKDIR /usr/src/dockerCpp/build
 
 # Generate CMake cache
-RUN cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release ..
+RUN cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_TOOLCHAIN_FILE=/usr/src/vcpkg/scripts/buildsystems/vcpkg.cmake ..
 ENV LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}"
 
 # build and install targets
@@ -50,7 +54,7 @@ RUN ninja install
 
 # Expose dockerCPP tcp port
 # EXPOSE 2048
-EXPOSE 8000 8080
+# EXPOSE 8000 8080
 
 WORKDIR /usr/local
 # CMD ["httpServer", "0.0.0.0", "8080"]

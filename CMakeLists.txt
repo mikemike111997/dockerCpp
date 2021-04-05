@@ -17,6 +17,7 @@ else()
 endif()
 
 find_package(Boost REQUIRED)
+find_package(Threads REQUIRED)
 
 include(cmake/add-cppcheck-target.cmake)
 
