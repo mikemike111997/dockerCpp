@@ -14,8 +14,6 @@ target_link_libraries(dbLayerRPCServer
                             PRIVATE gRPC::grpc++ protobuf::libprotobuf Threads::Threads)
 target_include_directories(dbLayerRPCServer
                             PUBLIC inc
-                            PRIVATE ${PostgreSQL_INCLUDE_DIR}
-                            PRIVATE ${Protobuf_INCLUDE_DIRS}
-                            PRIVATE ${GRPC_INCLUDE_DIRS})
+                            PRIVATE ${PostgreSQL_INCLUDE_DIR})
 
 install(TARGETS dbLayer dbLayerRPCServer)
