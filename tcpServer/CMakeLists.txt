@@ -1,5 +1,5 @@
 add_executable(tcpServer src/tcpServer.cpp)
-target_link_libraries(tcpServer CONAN_PKG::boost)
-target_include_directories(tcpServer PUBLIC inc PUBLIC ${CONAN_BOOST_ROOT}/include)
+target_link_libraries(tcpServer Boost::boost)
+target_include_directories(tcpServer PUBLIC inc PUBLIC ${Boost_INCLUDE_DIR})
 
 install(TARGETS tcpServer)
