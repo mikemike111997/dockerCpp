@@ -34,9 +34,8 @@ ENV PATH="/usr/src/vcpkg:${PATH}"
 
 RUN vcpkg install boost
 RUN vcpkg install libpq
+RUN vcpkg install grpc
 RUN vcpkg integrate install
-
-RUN echo "323123"
 
 # Install project from git
 RUN git clone https://github.com/mikemike111997/dockerCpp.git && \
