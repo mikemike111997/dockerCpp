@@ -9,7 +9,8 @@ target_include_directories(dbLayer PUBLIC inc PRIVATE ${PostgreSQL_INCLUDE_DIR})
 # rpc server
 add_executable(dbLayerRPCServer src/dbLayerRPCServer.cpp)
 target_link_libraries(dbLayerRPCServer
-                            PUBLIC dbLayer dbLayerRPC Boost::boost
+                            PUBLIC dbLayer
+                            PRIVATE dbLayerRPC Boost::boost
                             PRIVATE OpenSSL::SSL OpenSSL::Crypto Threads::Threads
                             PRIVATE gRPC::grpc++ protobuf::libprotobuf Threads::Threads)
 target_include_directories(dbLayerRPCServer

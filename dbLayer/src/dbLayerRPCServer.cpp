@@ -9,6 +9,12 @@
  * 
  */
 
+#ifdef _MSC_VER
+#pragma warning(disable: 4251) // disable warning 4345
+#pragma warning(disable: 4244) // enable warning 4345 back
+#pragma warning(disable: 4996) // enable warning 4345 back
+#endif
+
 #include "dbLayer.pb.h"
 #include "dbLayer.grpc.pb.h"
 #include "dbConnection.h"
