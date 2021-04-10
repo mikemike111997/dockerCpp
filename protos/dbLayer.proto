@@ -1,0 +1,18 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+package dbLayer;
+
+service dbHandler{
+    rpc getAllUsers(google.protobuf.Empty) returns (Users); 
+}
+
+message User{
+    int32 id = 1;
+    string firstName = 2;
+    string lastName = 3;
+}
+
+message Users{
+    repeated User users = 1;
+}

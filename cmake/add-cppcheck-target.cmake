@@ -18,5 +18,5 @@ if(cppcheck)
             ${ALL_CXX_SOURCE_FILES}
     )
 else()
-    message("cppcheck was not found.")
+    message(STATUS "cppcheck was not found.")
 endif()

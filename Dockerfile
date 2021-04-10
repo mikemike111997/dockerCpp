@@ -34,15 +34,14 @@ ENV PATH="/usr/src/vcpkg:${PATH}"
 
 RUN vcpkg install boost
 RUN vcpkg install libpq
+RUN vcpkg install grpc
+RUN vcpkg install protobuf
 RUN vcpkg integrate install
 
-RUN echo "323123"
+ADD . /usr/src/dockerCpp/
 
-# Install project from git
-RUN git clone https://github.com/mikemike111997/dockerCpp.git && \
-    cd dockerCpp && git fetch && git checkout feature/fix-docker-build
-
-# Create build dir and use it as the workdir
+# make sure build folder is created and it's clean
+RUN rm -rf /usr/src/dockerCpp/build
 RUN mkdir -p /usr/src/dockerCpp/build
 WORKDIR /usr/src/dockerCpp/build
 
