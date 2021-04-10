@@ -28,4 +28,7 @@ target_include_directories(dbLayerRPC PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
 
 if(MSVC)
   target_compile_options(dbLayerRPC BEFORE PRIVATE /W0)
+else()
+  # suppress grpc and protobuf warnings
+  target_compile_options(dbLayerRPC BEFORE PRIVATE -Wno-zero-length-array -Wno-non-virtual-dtor)
 endif()
