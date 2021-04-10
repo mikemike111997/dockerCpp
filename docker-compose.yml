@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+    web:
+        build: .
+        ports:
+            - "127.0.0.1:8080:8080"
+        entrypoint: ["httpServer", "0.0.0.0", "8080"]
+    grpc:
+        build: .
+        ports:
+            - "127.0.0.1:8000:8000"
+        entrypoint: ["dbLayerRPCServer", "0.0.0.0", "8000"]
