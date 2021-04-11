@@ -17,4 +17,14 @@ target_include_directories(dbLayerRPCServer
                             PUBLIC inc
                             PRIVATE ${PostgreSQL_INCLUDE_DIR})
 
-install(TARGETS dbLayer dbLayerRPCServer)
+
+# rpc client
+add_library(dbLayerRPCClient SHARED src/dbLayerRPCClient.cpp inc/dbLayerRPCClient.h)
+target_link_libraries(dbLayerRPCClient
+                        PUBLIC dbLayerRPC
+                        PRIVATE Boost::boost
+                        PUBLIC gRPC::grpc++ protobuf::libprotobuf Threads::Threads)
+target_include_directories(dbLayerRPCClient
+                            PUBLIC inc)
+
+install(TARGETS dbLayer dbLayerRPCServer dbLayerRPCClient)

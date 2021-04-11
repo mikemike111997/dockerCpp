@@ -12,6 +12,7 @@
  */
 
 #include "dbConnection.h"
+#include "dbLayerRPCClient.h"
 
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
@@ -23,6 +24,9 @@
 #include <iostream>
 #include <memory>
 #include <string>
+
+
+static std::unique_ptr<DBClinetRPC> grpcClient{nullptr};
 
 namespace beast = boost::beast;
 namespace http = beast::http;
@@ -50,18 +54,18 @@ namespace NSMyProgramState
      */
     std::string getUsers()
     {
-        NSDBConnection::PGConnection conn("34.65.88.18", "5432", "postgres", "postgres", "iDGJ6E7JlkJJ3u5v");
-        auto res = conn.executeSQL("select * from users;");
-        if (PQresultStatus(res) != PGRES_TUPLES_OK)
+        // grpc call
+
+        std::string resStr = "<table><tr><th>ID</th><th>First Name</th><th>Last Name</th></tr>";
+
+        const auto users = grpcClient->getAllUsers();
+        for (const auto& user : users.users())
         {
-            return PQresultErrorMessage(res);
+            resStr.append("<tr><td>").append(std::to_string(user.id())).append("</td>")
+                  .append("<td>").append(user.firstname()).append("</td>")
+                  .append("<td>").append(user.lastname()).append("</td></tr>");
         }
-        else
-        {
-            // probably we have a leak in res.
-            // TODO: run valgrind, release all acquired resources
-            return NSDBConnection::htmlTableFromRes(res);
-        }
+        return resStr.append("</table>");
     }
 }
 
@@ -252,15 +256,21 @@ int main(int argc, char* argv[])
     try
     {
         // Check command line arguments.
-        if(argc != 3)
+        if(argc != 5)
         {
-            std::cerr << "Usage: " << argv[0] << " <address> <port>\n";
+            std::cerr << "Usage: " << argv[0]
+                      << " <address> <port> <grpcServerHost> <grpcServerPort>\n";
             std::cerr << "  For IPv4, try:\n";
-            std::cerr << "    receiver 0.0.0.0 80\n";
+            std::cerr << "    receiver 0.0.0.0 80 0.0.0.0 5050\n";
             std::cerr << "  For IPv6, try:\n";
-            std::cerr << "    receiver 0::0 80\n";
+            std::cerr << "    receiver 0::0 80 0::0 5050\n";
             return EXIT_FAILURE;
         }
+
+        std::string grpcServerAddr = argv[3];
+        grpcServerAddr.append(":").append(argv[4]);
+        grpcClient = DBClinetRPC::Create(grpcServerAddr);
+
 
         auto const address = net::ip::make_address(argv[1]);
         unsigned short port = static_cast<unsigned short>(std::atoi(argv[2]));
