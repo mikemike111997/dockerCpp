@@ -1,19 +1,24 @@
 version: "3.9"
 services:
+    grpc:
+        build: .
+        expose:
+            - "8000"
+        entrypoint: ["dbLayerRPCServer", "localhost", "8000"]
+        network_mode: host
     http_server:
         build: .
         depends_on:
             - grpc
+        links:
+            - "grpc"
         ports:
             - "127.0.0.1:8002:8080"
-        entrypoint: ["httpServer", "0.0.0.0", "8080"]
+        entrypoint: ["httpServer", "0.0.0.0", "8080", "grpc", "8000"]
     tcp_server:
         build: .
         ports:
             - "127.0.0.1:8001:8001"
         entrypoint: ["tcpServer", "8001"]
-    grpc:
-        build: .
-        ports:
-            - "127.0.0.1:8000:8000"
-        entrypoint: ["dbLayerRPCServer", "0.0.0.0", "8000"]
+
+

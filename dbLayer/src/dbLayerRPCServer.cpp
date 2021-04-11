@@ -10,19 +10,25 @@
  */
 
 #ifdef _MSC_VER
-#pragma warning(disable: 4251) // disable warning 4345
-#pragma warning(disable: 4244) // enable warning 4345 back
-#pragma warning(disable: 4996) // enable warning 4345 back
+    #pragma warning( push )
+    #pragma warning(disable: 4251) // disable warning 4345
+    #pragma warning(disable: 4244) // enable warning 4345 back
+    #pragma warning(disable: 4996) // enable warning 4345 back
 #endif
 
 #include "dbLayer.pb.h"
 #include "dbLayer.grpc.pb.h"
+#include <grpc/grpc.h>
+#include <grpcpp/server_builder.h>
+
+#ifdef _MSC_VER
+    #pragma warning( pop )
+#endif
+
 #include "dbConnection.h"
 
 #include <iostream>
 #include <boost/lexical_cast.hpp>
-#include <grpc/grpc.h>
-#include <grpcpp/server_builder.h>
 
 
 /**
@@ -59,9 +65,9 @@ public:
             for (int i = 0; i < PQntuples(res); ++i)
             {
                 ::dbLayer::User user;
-                user.set_id(boost::lexical_cast<int32_t>(PQgetvalue(res, 0, 0)));
-                user.set_firstname(PQgetvalue(res, 0, 1));
-                user.set_lastname(PQgetvalue(res, 0, 2));
+                user.set_id(boost::lexical_cast<int32_t>(PQgetvalue(res, i, 0)));
+                user.set_firstname(PQgetvalue(res, i, 1));
+                user.set_lastname(PQgetvalue(res, i, 2));
                 
                 users->Add(std::move(user));
             }
